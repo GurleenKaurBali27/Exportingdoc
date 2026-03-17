@@ -1,0 +1,526 @@
+/* ═══════════════════════════════════════════════════════════════
+   MERGED EDITION
+   Background : Dark purple glassmorphism mesh  (from v1)
+   Cards      : Clean light frosted white       (from screenshot)
+   Text       : Dark on light cards — fully readable
+   Accents    : Purple left strip + neon header labels
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ── 1. Nuke every SAP white/grey container ───────────────────── */
+
+html,
+body,
+body.sapUiBody,
+.sapUiBody,
+.sapMShell,
+.sapMShellBG,
+.sapMShellBGCanvas,
+.sapUiShell,
+.sapMApp,
+.sapMPage,
+.sapMPageBgStandard,
+.sapMPageBgSolid,
+.sapMPageScrollContainer,
+.sapMFlexBox,
+.sapMVBox,
+.sapMHBox,
+.sapMListBGSolid,
+.sapMListBGTranslucent,
+#content,
+#content > * {
+    background-color: transparent !important;
+    background-image:  none !important;
+}
+
+/* ── 2. Dark purple mesh — on <html> so it can never be nuked ─── */
+
+html {
+    background-color: #130820 !important;
+    background-image:
+        radial-gradient(ellipse 70% 55% at 12%  8%,  rgba(130, 40, 220, 0.55) 0%, transparent 58%),
+        radial-gradient(ellipse 55% 50% at 85% 10%,  rgba(100, 20, 190, 0.42) 0%, transparent 56%),
+        radial-gradient(ellipse 70% 48% at 50% 95%,  rgba(170, 20, 95,  0.38) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 40% at 90% 80%,  rgba(80,  20, 180, 0.28) 0%, transparent 52%) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh !important;
+}
+
+body, body.sapUiBody {
+    background: transparent !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+/* ── 3. Page header ───────────────────────────────────────────── */
+
+.sapMPageHeader,
+.sapMIBar,
+.sapMIBar-CTX {
+    background: rgba(10, 4, 22, 0.92) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(192, 132, 252, 0.28) !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.55) !important;
+}
+
+.sapMBarMiddle .sapMTitle,
+.sapMBarMiddle .sapMTitleStyle {
+    color: #ffffff !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.05rem !important;
+    letter-spacing: 0.02em !important;
+}
+
+/* Header bar buttons */
+.sapMBtnTransparent .sapMBtnInner {
+    color: #ffffff !important;
+}
+
+/* ── 4. Cards — clean light frosted white (like screenshot) ───── */
+
+.sapMPanel {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
+    border-radius: 16px !important;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.22),
+        0 1px 0 rgba(255, 255, 255, 0.9) inset !important;
+    margin-bottom: 22px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+    animation: cardIn 0.45s cubic-bezier(0.4,0,0.2,1) both !important;
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.sapMPanel:nth-child(1) { animation-delay: 0.04s; }
+.sapMPanel:nth-child(2) { animation-delay: 0.10s; }
+.sapMPanel:nth-child(3) { animation-delay: 0.16s; }
+.sapMPanel:nth-child(4) { animation-delay: 0.22s; }
+.sapMPanel:nth-child(5) { animation-delay: 0.28s; }
+.sapMPanel:nth-child(6) { animation-delay: 0.34s; }
+.sapMPanel:nth-child(7) { animation-delay: 0.40s; }
+
+.sapMPanel:hover {
+    box-shadow:
+        0 14px 42px rgba(109, 40, 217, 0.22),
+        0 0 0 1px rgba(192, 132, 252, 0.30),
+        0 1px 0 rgba(255,255,255,0.9) inset !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ── 5. Left neon accent strip ────────────────────────────────── */
+
+.sapMPanel::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 0; top: 0; bottom: 0 !important;
+    width: 4px !important;
+    border-radius: 0 3px 3px 0 !important;
+    z-index: 10 !important;
+}
+
+.sapMPanel:nth-child(1)::before { background: #7c3aed; box-shadow: 2px 0 12px rgba(124,58,237,0.7); }
+.sapMPanel:nth-child(2)::before { background: #db2777; box-shadow: 2px 0 12px rgba(219,39,119,0.7); }
+.sapMPanel:nth-child(3)::before { background: #4f46e5; box-shadow: 2px 0 12px rgba(79,70,229,0.7);  }
+.sapMPanel:nth-child(4)::before { background: #059669; box-shadow: 2px 0 12px rgba(5,150,105,0.7);  }
+.sapMPanel:nth-child(5)::before { background: #7c3aed; box-shadow: 2px 0 12px rgba(124,58,237,0.7); }
+.sapMPanel:nth-child(6)::before { background: #db2777; box-shadow: 2px 0 12px rgba(219,39,119,0.7); }
+.sapMPanel:nth-child(7)::before { background: #4f46e5; box-shadow: 2px 0 12px rgba(79,70,229,0.7);  }
+
+/* ── 6. Panel header — light grey strip, dark readable text ───── */
+
+.sapMPanelHdr {
+    background: rgba(230, 220, 250, 0.55) !important;
+    border-bottom: 1px solid rgba(192, 132, 252, 0.20) !important;
+    padding: 13px 20px 13px 22px !important;
+    min-height: 48px !important;
+}
+
+.sapMPanelHdrText {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.10em !important;
+    text-transform: uppercase !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Each panel gets a distinct dark colour for its header label */
+.sapMPanel:nth-child(1) .sapMPanelHdrText { color: #5b21b6 !important; }
+.sapMPanel:nth-child(2) .sapMPanelHdrText { color: #9d174d !important; }
+.sapMPanel:nth-child(3) .sapMPanelHdrText { color: #3730a3 !important; }
+.sapMPanel:nth-child(4) .sapMPanelHdrText { color: #065f46 !important; }
+.sapMPanel:nth-child(5) .sapMPanelHdrText { color: #5b21b6 !important; }
+.sapMPanel:nth-child(6) .sapMPanelHdrText { color: #9d174d !important; }
+.sapMPanel:nth-child(7) .sapMPanelHdrText { color: #3730a3 !important; }
+
+/* Panel expand arrow */
+.sapMPanelExpandButton .sapMBtnIcon { color: #7c3aed !important; }
+
+.sapMPanelExpandablePart,
+.sapMPanelContent {
+    background: transparent !important;
+    padding: 20px !important;
+}
+
+/* ── 7. All text — dark on light cards ───────────────────────── */
+
+.sapMText,
+span.sapMText,
+p.sapMText {
+    color: #374151 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.83rem !important;
+    line-height: 1.6 !important;
+}
+
+.sapMLabel {
+    color: #4b5563 !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.sapMTitle {
+    color: #111827 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* ── 8. Buttons ──────────────────────────────────────────────── */
+
+/* Default */
+.sapMBtn .sapMBtnInner {
+    background: #f3f0ff !important;
+    border: 1px solid #c4b5fd !important;
+    border-radius: 9px !important;
+    color: #4c1d95 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 0.84rem !important;
+    transition: all 0.22s ease !important;
+}
+
+.sapMBtn:hover .sapMBtnInner {
+    background: #ede9fe !important;
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.12) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Emphasized → solid violet */
+.sapMBtnEmphasized .sapMBtnInner {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%) !important;
+    border: 1px solid #7c3aed !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(124,58,237,0.40) !important;
+}
+
+.sapMBtnEmphasized:hover .sapMBtnInner {
+    background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%) !important;
+    box-shadow: 0 6px 20px rgba(124,58,237,0.55) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Accept → pink */
+.sapMBtnAccept .sapMBtnInner {
+    background: linear-gradient(135deg, #be185d 0%, #ec4899 100%) !important;
+    border: 1px solid #be185d !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(190,24,93,0.38) !important;
+}
+
+.sapMBtnAccept:hover .sapMBtnInner {
+    background: linear-gradient(135deg, #9d174d 0%, #db2777 100%) !important;
+    box-shadow: 0 6px 20px rgba(219,39,119,0.55) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Reject → red */
+.sapMBtnReject .sapMBtnInner {
+    background: linear-gradient(135deg, #9f1239 0%, #f43f5e 100%) !important;
+    border: 1px solid #9f1239 !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 14px rgba(159,18,57,0.38) !important;
+}
+
+.sapMBtnReject:hover .sapMBtnInner {
+    background: linear-gradient(135deg, #881337 0%, #e11d48 100%) !important;
+    box-shadow: 0 6px 20px rgba(244,63,94,0.55) !important;
+    transform: translateY(-2px) !important;
+}
+
+.sapMBtnIcon { color: inherit !important; }
+
+/* ── 9. File Uploader ────────────────────────────────────────── */
+
+.sapUiUfdFileUploader {
+    background: #faf5ff !important;
+    border: 1.5px dashed #c4b5fd !important;
+    border-radius: 10px !important;
+    transition: all 0.22s ease !important;
+}
+
+.sapUiUfdFileUploader:hover {
+    background: #f3e8ff !important;
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.10) !important;
+}
+
+.sapUiUfdFileUploaderInput {
+    background: transparent !important;
+    color: #6b7280 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.83rem !important;
+}
+
+/* ── 10. Table ───────────────────────────────────────────────── */
+
+.sapMList,
+.sapMListTbl,
+.sapMListItems,
+.sapMListTblBody {
+    background: transparent !important;
+}
+
+.sapMListTblHeaderCell,
+.sapMListTblHeaderRow th {
+    background: #f3e8ff !important;
+    border-bottom: 1.5px solid #c4b5fd !important;
+    padding: 11px 16px !important;
+}
+
+.sapMColumnHeader .sapMLabel {
+    color: #5b21b6 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+}
+
+.sapMListTblRow td {
+    color: #1f2937 !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+    background: transparent !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.83rem !important;
+}
+
+.sapMListTblRow:nth-child(even) td {
+    background: #faf5ff !important;
+}
+
+.sapMListTblRow:hover td {
+    background: #f3e8ff !important;
+}
+
+/* Table toolbar */
+.sapMTB,
+.sapMTB-Transparent-CTX {
+    background: #f9f5ff !important;
+    border-bottom: 1px solid #e9d5ff !important;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.sapMTB .sapMTitle {
+    color: #1f2937 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* ── 11. Search Field ────────────────────────────────────────── */
+
+.sapMSF {
+    background: #faf5ff !important;
+    border: 1px solid #c4b5fd !important;
+    border-radius: 9px !important;
+    transition: all 0.22s ease !important;
+}
+
+.sapMSFFocused,
+.sapMSF:focus-within {
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.12) !important;
+}
+
+.sapMSFI, .sapMSFVal, input.sapMSFI {
+    background: transparent !important;
+    color: #1f2937 !important;
+    font-family: 'Outfit', sans-serif !important;
+}
+
+.sapMSFPlaceholder { color: #9ca3af !important; }
+
+/* ── 12. Message Strip ───────────────────────────────────────── */
+
+.sapMMessageStrip {
+    background: #f3e8ff !important;
+    border: 1px solid #c4b5fd !important;
+    border-radius: 9px !important;
+}
+
+.sapMMessageStripMessage {
+    color: #4c1d95 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.82rem !important;
+}
+
+/* ── 13. Object Status ───────────────────────────────────────── */
+
+.sapMObjStatus {
+    background: #faf5ff !important;
+    border: 1px solid #e9d5ff !important;
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+}
+
+.sapMObjStatusTitle {
+    color: #6b7280 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+
+.sapMObjStatusText {
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+.sapMObjStatusStateSuccess .sapMObjStatusText     { color: #15803d !important; }
+.sapMObjStatusStateInformation .sapMObjStatusText { color: #7c3aed !important; }
+.sapMObjStatusStateWarning .sapMObjStatusText     { color: #b45309 !important; }
+
+/* ── 14. TextArea ────────────────────────────────────────────── */
+
+.sapMTextArea,
+.sapMTextAreaInner,
+textarea.sapMTextAreaInner {
+    background: #1e1b2e !important;
+    border: 1px solid #c4b5fd !important;
+    border-radius: 10px !important;
+    color: #c084fc !important;
+    font-family: "Fira Code", "Courier New", monospace !important;
+    font-size: 0.76rem !important;
+    line-height: 1.75 !important;
+}
+
+/* ── 15. Dialog ──────────────────────────────────────────────── */
+
+.sapMDialog,
+.sapMPopup {
+    background: rgba(255, 255, 255, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid #e9d5ff !important;
+    border-radius: 20px !important;
+    box-shadow: 0 32px 80px rgba(109,40,217,0.22),
+                0 0 0 1px rgba(192,132,252,0.15) !important;
+    overflow: hidden !important;
+}
+
+.sapMDialogTitle,
+.sapMDialogTitleGroup {
+    background: linear-gradient(135deg, #f3e8ff 0%, #fce7f3 100%) !important;
+    border-bottom: 1px solid #e9d5ff !important;
+    padding: 16px 22px !important;
+}
+
+.sapMDialogTitle .sapMTitle,
+.sapMDialogTitleGroup .sapMTitle {
+    color: #5b21b6 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+.sapMDialogSection {
+    background: transparent !important;
+    padding: 20px !important;
+}
+
+.sapMDialogFooter {
+    background: #faf5ff !important;
+    border-top: 1px solid #e9d5ff !important;
+    padding: 12px 18px !important;
+}
+
+/* Backdrop */
+.sapMDialogBlockLayer,
+.sapUiBLy {
+    background: rgba(19, 8, 32, 0.72) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* ── 16. Checkbox ────────────────────────────────────────────── */
+
+.sapMCb .sapMCbBg {
+    background: #faf5ff !important;
+    border: 1.5px solid #c4b5fd !important;
+    border-radius: 5px !important;
+}
+
+.sapMCbMarkChecked .sapMCbBg {
+    background: #7c3aed !important;
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 8px rgba(124,58,237,0.45) !important;
+}
+
+/* ── 17. Media wrappers ──────────────────────────────────────── */
+
+.mediaDisplayWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px;
+    gap: 16px;
+    background: #faf5ff;
+    border-radius: 12px;
+    border: 1px solid #e9d5ff;
+}
+
+.mediaCaption {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    color: #6b7280;
+    letter-spacing: 0.04em;
+    padding: 5px 16px;
+    background: #f3e8ff;
+    border: 1px solid #e9d5ff;
+    border-radius: 20px;
+}
+
+/* ── 18. Scrollbar ───────────────────────────────────────────── */
+
+::-webkit-scrollbar             { width: 5px; height: 5px; }
+::-webkit-scrollbar-track       { background: rgba(255,255,255,0.05); }
+::-webkit-scrollbar-thumb       { background: rgba(124,58,237,0.35); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.62); }
+
+/* ── 19. Growing list ────────────────────────────────────────── */
+
+.sapMGrowingList,
+.sapMGrowingListButton {
+    background: #f3e8ff !important;
+    border: 1px solid #c4b5fd !important;
+    border-radius: 8px !important;
+    color: #5b21b6 !important;
+    font-family: 'Outfit', sans-serif !important;
+}

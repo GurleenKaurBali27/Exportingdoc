@@ -1,0 +1,223 @@
+<mvc:View controllerName="exportdoc.exportexcel.controller.excel"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:u="sap.ui.unified"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    displayBlock="true">
+
+    <Page id="page" title="{i18n>title}" class="sapUiContentPadding">
+
+        <headerContent>
+            <Button text="Export to Excel" icon="sap-icon://excel-attachment"
+                type="Accept" press="onExportToExcel" />
+            <Button text="Clear All" icon="sap-icon://clear-all"
+                type="Reject" press="onClearAll" />
+        </headerContent>
+
+        <content>
+            <VBox class="sapUiMediumMargin">
+
+                <!-- ══════════════════════════════════════ -->
+                <!--  SECTION 1 — Excel                    -->
+                <!-- ══════════════════════════════════════ -->
+                <Panel headerText="EXCEL DOCUMENT UPLOAD" expandable="true" expanded="true">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Accepted format: .xlsx only" class="sapUiSmallMarginBottom" />
+                            <u:FileUploader
+                                id="fileUploader"
+                                name="documentUpload"
+                                width="100%"
+                                placeholder="Drop or browse your Excel file (.xlsx)..."
+                                change="onFileChange"
+                                typeMissmatch="onTypeMismatch"
+                                fileType="xlsx"
+                                icon="sap-icon://upload"
+                                buttonText="Browse Excel"
+                                style="Emphasized" />
+                            <Button text="Load Document" icon="sap-icon://inspection"
+                                type="Emphasized" press="onLoadDocument"
+                                class="sapUiSmallMarginTop" />
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <MessageStrip id="fileInfoStrip"
+                    text="{documentModel>/fileInfo}"
+                    type="Information" showIcon="true"
+                    visible="{= !!${documentModel>/fileInfo}}"
+                    class="sapUiSmallMarginTop sapUiSmallMarginBottom" />
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center"
+                    visible="{= ${documentModel>/rows}.length > 0}"
+                    class="sapUiSmallMarginBottom">
+                    <HBox>
+                        <ObjectStatus title="ROWS"    text="{documentModel>/totalRows}"    state="Success"     class="sapUiSmallMarginEnd" />
+                        <ObjectStatus title="COLUMNS" text="{documentModel>/totalColumns}" state="Information" class="sapUiSmallMarginEnd" />
+                        <ObjectStatus title="TYPE"    text="{documentModel>/fileType}"     state="Warning" />
+                    </HBox>
+                    <SearchField id="searchField" placeholder="Search records..."
+                        width="280px" search="onSearch" liveChange="onSearch" />
+                </HBox>
+
+                <Panel headerText="FETCHED RECORDS" visible="{= ${documentModel>/rows}.length > 0}">
+                    <content>
+                        <Table id="dataTable" growing="true" growingThreshold="50"
+                            growingScrollToLoad="true" alternateRowColors="true"
+                            sticky="ColumnHeaders,HeaderToolbar" mode="MultiSelect">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title text="Document Records" />
+                                    <ToolbarSpacer />
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns id="tableColumns" />
+                        </Table>
+                    </content>
+                </Panel>
+
+                <Panel headerText="RAW DATA PREVIEW" expandable="true" expanded="false"
+                    visible="{= !!${documentModel>/rawPreview}}">
+                    <content>
+                        <TextArea value="{documentModel>/rawPreview}"
+                            rows="10" width="100%" editable="false" growing="true" />
+                    </content>
+                </Panel>
+
+                <!-- ══════════════════════════════════════ -->
+                <!--  SECTION 2 — Image                    -->
+                <!-- ══════════════════════════════════════ -->
+                <Panel headerText="IMAGE UPLOAD" expandable="true" expanded="true"
+                    class="sapUiLargeMarginTop">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Supported: jpg · jpeg · png · gif · webp · bmp"
+                                class="sapUiSmallMarginBottom" />
+                            <u:FileUploader
+                                id="imageUploader"
+                                name="imageUpload"
+                                width="100%"
+                                placeholder="Drop or browse an image file..."
+                                change="onImageFileChange"
+                                typeMissmatch="onImageTypeMismatch"
+                                fileType="jpg,jpeg,png,gif,webp,bmp"
+                                icon="sap-icon://picture"
+                                buttonText="Browse Image"
+                                style="Emphasized" />
+                            <HBox class="sapUiSmallMarginTop">
+                                <Button text="Preview Image" icon="sap-icon://eye"
+                                    type="Emphasized" press="onPreviewImage"
+                                    class="sapUiSmallMarginEnd" />
+                                <Button text="Clear Image" icon="sap-icon://decline"
+                                    type="Reject" press="onClearImage" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Image Display -->
+                <Panel id="imageDisplayPanel" headerText="UPLOADED IMAGE"
+                    visible="{mediaModel>/imageUploaded}" class="sapUiSmallMarginTop">
+                    <content>
+                        <VBox alignItems="Center">
+                            <html:div id="imageDisplayContainer" class="mediaDisplayWrap" />
+                            <html:div class="mediaCaption">{mediaModel>/imageName}</html:div>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- ══════════════════════════════════════ -->
+                <!--  SECTION 3 — Video                    -->
+                <!-- ══════════════════════════════════════ -->
+                <Panel headerText="VIDEO UPLOAD" expandable="true" expanded="true"
+                    class="sapUiLargeMarginTop">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <Text text="Supported: mp4 · webm · ogg · mov"
+                                class="sapUiSmallMarginBottom" />
+                            <u:FileUploader
+                                id="videoUploader"
+                                name="videoUpload"
+                                width="100%"
+                                placeholder="Drop or browse a video file..."
+                                change="onVideoFileChange"
+                                typeMissmatch="onVideoTypeMismatch"
+                                fileType="mp4,webm,ogg,mov"
+                                icon="sap-icon://video"
+                                buttonText="Browse Video"
+                                style="Emphasized" />
+                            <HBox class="sapUiSmallMarginTop">
+                                <Button text="Preview Video" icon="sap-icon://eye"
+                                    type="Emphasized" press="onPreviewVideo"
+                                    class="sapUiSmallMarginEnd" />
+                                <Button text="Clear Video" icon="sap-icon://decline"
+                                    type="Reject" press="onClearVideo" />
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Video Display -->
+                <Panel id="videoDisplayPanel" headerText="UPLOADED VIDEO"
+                    visible="{mediaModel>/videoUploaded}" class="sapUiSmallMarginTop">
+                    <content>
+                        <VBox alignItems="Center">
+                            <html:div id="videoDisplayContainer" class="mediaDisplayWrap" />
+                            <html:div class="mediaCaption">{mediaModel>/videoName}</html:div>
+                        </VBox>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  IMAGE PREVIEW DIALOG                             -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <Dialog id="imagePreviewDialog" title="Image Preview"
+        contentWidth="640px" resizable="true" draggable="true"
+        afterOpen="onImageDialogAfterOpen">
+        <content>
+            <VBox alignItems="Center" class="sapUiSmallMargin">
+                <html:div id="imagePreviewContainer"
+                    style="width:100%;min-height:220px;display:flex;align-items:center;justify-content:center;padding:8px;" />
+                <Text id="imagePreviewName" class="sapUiTinyMarginTop" />
+                <Text id="imagePreviewSize" />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Upload to Page" icon="sap-icon://upload"
+                type="Emphasized" press="onConfirmImageUpload" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" icon="sap-icon://decline"
+                type="Reject" press="onCloseImagePreview" />
+        </endButton>
+    </Dialog>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  VIDEO PREVIEW DIALOG                             -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <Dialog id="videoPreviewDialog" title="Video Preview"
+        contentWidth="740px" resizable="true" draggable="true"
+        afterOpen="onVideoDialogAfterOpen">
+        <content>
+            <VBox alignItems="Center" class="sapUiSmallMargin">
+                <html:div id="videoPreviewContainer"
+                    style="width:100%;min-height:220px;display:flex;align-items:center;justify-content:center;padding:8px;" />
+                <Text id="videoPreviewName" class="sapUiTinyMarginTop" />
+                <Text id="videoPreviewSize" />
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Upload to Page" icon="sap-icon://upload"
+                type="Emphasized" press="onConfirmVideoUpload" />
+        </beginButton>
+        <endButton>
+            <Button text="Cancel" icon="sap-icon://decline"
+                type="Reject" press="onCloseVideoPreview" />
+        </endButton>
+    </Dialog>
+
+</mvc:View>
